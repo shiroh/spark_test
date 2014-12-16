@@ -1,5 +1,5 @@
 package citi_test
 
-trait Publisher {
-	def emit 
-}
+import scala.actors.Actor
+
+trait Publisher extends Actor

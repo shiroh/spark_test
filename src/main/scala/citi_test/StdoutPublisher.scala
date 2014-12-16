@@ -11,23 +11,36 @@ import com.twitter.util.Time
 import com.twitter.conversions.time._
 import scala.actors.TIMEOUT
 
-class StdoutPublisher extends Publisher with Actor {
+class StdoutPublisher extends Publisher {
   var OHLCMap = new HashMap[String, OHLCPrice]
   var TENORMap = new HashMap[String, TENORPrice]
+  var curMin = Time.now.inMinutes
 
   def act {
-    while (true) {
-      receiveWithin(1000) {
-        case price: OHLCPrice => OHLCMap(price.instrument + price.tenor) = price ; checkOnMinute(emit)
-        case price: TENORPrice => TENORMap(price.instrument) = price; checkOnMinute(emit)
-        case TIMEOUT => checkOnMinute(emit)
+    try {
+      while (true) {
+        receiveWithin(1000) {
+          case price: OHLCPrice =>
+            OHLCMap(price.instrument + price.tenor) = price; checkOnMinute(emit)
+          case price: TENORPrice =>
+            TENORMap(price.instrument) = price; checkOnMinute(emit)
+          case TIMEOUT => checkOnMinute(emit)
+          case _ => println("unknown input data")
+        }
       }
+    } catch {
+      case th: Throwable => println(th)
     }
   }
 
-  //TODO Logic error ,only print once every minute
-  def checkOnMinute(f: => Unit) {
-    if (Time.now.inSeconds == 0) f
+  def checkOnMinute(func: => Unit) {
+    var min = Time.now.inMinutes
+    var sec = Time.now.inSeconds
+
+    if (sec%60 == 0 && min != curMin) {
+      curMin = min
+      func
+    }
   }
   def emit {
     OHLCMap.valuesIterator.foreach(p => {

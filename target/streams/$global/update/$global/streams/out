@@ -1,4 +1,4 @@
-[0m[[0minfo[0m] [0mUpdating {file:/home/shiroh/playground/citi_test/}citi_test...[0m
+[0m[[0minfo[0m] [0mUpdating {file:/home/shijun/playground/citispark/}citispark...[0m
 [0m[[0mdebug[0m] [0m:: resolving dependencies :: citi-test#citi-test_2.10;1.0[0m
 [0m[[0mdebug[0m] [0m	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool][0m
 [0m[[0mdebug[0m] [0m	validate = true[0m
@@ -7,7 +7,7 @@
 [0m[[0mdebug[0m] [0m== resolving dependencies for citi-test#citi-test_2.10;1.0 [compile][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies citi-test#citi-test_2.10;1.0->org.scala-lang#scala-library;2.10.4 [compile->default(compile)][0m
 [0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.10.4 ...[0m
-[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@28724382[0m
+[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@606caade[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: org.scala-lang#scala-library;2.10.4[0m
 [0m[[0mdebug[0m] [0m	found org.scala-lang#scala-library;2.10.4 in sbt-chain[0m
 [0m[[0mdebug[0m] [0m	[2.10.4] org.scala-lang#scala-library;2.10.4[0m
@@ -2974,8 +2974,21 @@
 [0m[[0mdebug[0m] [0m== resolving dependencies citi-test#citi-test_2.10;1.0->com.typesafe#config;1.2.1 [compile->default(compile)][0m
 [0m[[0minfo[0m] [0mResolving com.typesafe#config;1.2.1 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.typesafe#config;1.2.1 {compile=[default(compile)]}[0m
-[0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: com.typesafe#config;1.2.1[0m
-[0m[[0mdebug[0m] [0m	found com.typesafe#config;1.2.1 in sbt-chain[0m
+[0m[[0minfo[0m] [0mResolving com.typesafe#config;1.2.1 ...[0m
+[0m[[0mdebug[0m] [0msbt-chain-delegate: Checking cache for: dependency: com.typesafe#config;1.2.1 {compile=[default(compile)]}[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.typesafe/config/1.2.1/ivys/ivy.xml[0m
+[0m[[0mdebug[0m] [0m	local: no ivy file found for com.typesafe#config;1.2.1[0m
+[0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom[0m
+[0m[[0mdebug[0m] [0m	public: found md file for com.typesafe#config;1.2.1[0m
+[0m[[0mdebug[0m] [0m		=> https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom (1.2.1)[0m
+[0m[[0mdebug[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom ...[0m
+[0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom[0m
+[0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom.sha1[0m
+[0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.typesafe#config;1.2.1!config.pom(pom.original) (1373ms)[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.typesafe/config/1.2.1/bundles/config.jar[0m
+[0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar[0m
+[0m[[0mdebug[0m] [0m	found com.typesafe#config;1.2.1 in public[0m
 [0m[[0mdebug[0m] [0m== resolving dependencies citi-test#citi-test_2.10;1.0->com.typesafe#config;1.2.1 [compile->runtime][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies citi-test#citi-test_2.10;1.0->com.typesafe#config;1.2.1 [compile->compile][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies citi-test#citi-test_2.10;1.0->com.typesafe#config;1.2.1 [compile->master][0m
@@ -2988,7 +3001,7 @@
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.twitter#util-collection_2.10;6.12.1 {compile=[default(compile)]}[0m
 [0m[[0minfo[0m] [0mResolving com.twitter#util-collection_2.10;6.12.1 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain-delegate: Checking cache for: dependency: com.twitter#util-collection_2.10;6.12.1 {compile=[default(compile)]}[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.twitter/util-collection_2.10/6.12.1/ivys/ivy.xml[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.twitter/util-collection_2.10/6.12.1/ivys/ivy.xml[0m
 [0m[[0mdebug[0m] [0m	local: no ivy file found for com.twitter#util-collection_2.10;6.12.1[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.pom[0m
 [0m[[0mdebug[0m] [0m	public: found md file for com.twitter#util-collection_2.10;6.12.1[0m
@@ -2997,8 +3010,8 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.pom[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.pom.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.pom[0m
-[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.twitter#util-collection_2.10;6.12.1!util-collection_2.10.pom(pom.original) (1261ms)[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.twitter/util-collection_2.10/6.12.1/jars/util-collection_2.10.jar[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.twitter#util-collection_2.10;6.12.1!util-collection_2.10.pom(pom.original) (1029ms)[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.twitter/util-collection_2.10/6.12.1/jars/util-collection_2.10.jar[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.jar[0m
 [0m[[0mdebug[0m] [0m	found com.twitter#util-collection_2.10;6.12.1 in public[0m
 [0m[[0mdebug[0m] [0m== resolving dependencies citi-test#citi-test_2.10;1.0->com.twitter#util-collection_2.10;6.12.1 [compile->runtime][0m
@@ -3008,7 +3021,7 @@
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.twitter#util-core_2.10;6.12.1 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}[0m
 [0m[[0minfo[0m] [0mResolving com.twitter#util-core_2.10;6.12.1 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain-delegate: Checking cache for: dependency: com.twitter#util-core_2.10;6.12.1 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.twitter/util-core_2.10/6.12.1/ivys/ivy.xml[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.twitter/util-core_2.10/6.12.1/ivys/ivy.xml[0m
 [0m[[0mdebug[0m] [0m	local: no ivy file found for com.twitter#util-core_2.10;6.12.1[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.pom[0m
 [0m[[0mdebug[0m] [0m	public: found md file for com.twitter#util-core_2.10;6.12.1[0m
@@ -3017,8 +3030,8 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.pom[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.pom.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.pom[0m
-[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.twitter#util-core_2.10;6.12.1!util-core_2.10.pom(pom.original) (969ms)[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.twitter/util-core_2.10/6.12.1/jars/util-core_2.10.jar[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.twitter#util-core_2.10;6.12.1!util-core_2.10.pom(pom.original) (944ms)[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.twitter/util-core_2.10/6.12.1/jars/util-core_2.10.jar[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.jar[0m
 [0m[[0mdebug[0m] [0m	found com.twitter#util-core_2.10;6.12.1 in public[0m
 [0m[[0mdebug[0m] [0m== resolving dependencies com.twitter#util-collection_2.10;6.12.1->com.twitter#util-core_2.10;6.12.1 [compile->compile(*)][0m
@@ -3042,7 +3055,7 @@
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: javax.inject#javax.inject;1 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}[0m
 [0m[[0minfo[0m] [0mResolving javax.inject#javax.inject;1 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain-delegate: Checking cache for: dependency: javax.inject#javax.inject;1 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/javax.inject/javax.inject/1/ivys/ivy.xml[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/javax.inject/javax.inject/1/ivys/ivy.xml[0m
 [0m[[0mdebug[0m] [0m	local: no ivy file found for javax.inject#javax.inject;1[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom[0m
 [0m[[0mdebug[0m] [0m	public: found md file for javax.inject#javax.inject;1[0m
@@ -3051,8 +3064,8 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.pom[0m
-[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] javax.inject#javax.inject;1!javax.inject.pom(pom.original) (947ms)[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/javax.inject/javax.inject/1/jars/javax.inject.jar[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] javax.inject#javax.inject;1!javax.inject.pom(pom.original) (956ms)[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/javax.inject/javax.inject/1/jars/javax.inject.jar[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar[0m
 [0m[[0mdebug[0m] [0m	found javax.inject#javax.inject;1 in public[0m
 [0m[[0mdebug[0m] [0m== resolving dependencies com.twitter#util-collection_2.10;6.12.1->javax.inject#javax.inject;1 [compile->compile(*)][0m
@@ -3063,7 +3076,7 @@
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.google.guava#guava;15.0 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}[0m
 [0m[[0minfo[0m] [0mResolving com.google.guava#guava;15.0 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain-delegate: Checking cache for: dependency: com.google.guava#guava;15.0 {compile=[compile(*), master(compile)], runtime=[runtime(*)]}[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.google.guava/guava/15.0/ivys/ivy.xml[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.google.guava/guava/15.0/ivys/ivy.xml[0m
 [0m[[0mdebug[0m] [0m	local: no ivy file found for com.google.guava#guava;15.0[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom[0m
 [0m[[0mdebug[0m] [0m	public: found md file for com.google.guava#guava;15.0[0m
@@ -3072,12 +3085,12 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom[0m
-[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.guava#guava;15.0!guava.pom(pom.original) (1092ms)[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.guava#guava;15.0!guava.pom(pom.original) (939ms)[0m
 [0m[[0minfo[0m] [0mResolving com.google.guava#guava-parent;15.0 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: com.google.guava#guava-parent;15.0 {}[0m
 [0m[[0minfo[0m] [0mResolving com.google.guava#guava-parent;15.0 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain-delegate: Checking cache for: dependency: com.google.guava#guava-parent;15.0 {}[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.google.guava/guava-parent/15.0/ivys/ivy.xml[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.google.guava/guava-parent/15.0/ivys/ivy.xml[0m
 [0m[[0mdebug[0m] [0m	local: no ivy file found for com.google.guava#guava-parent;15.0[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom[0m
 [0m[[0mdebug[0m] [0m	public: found md file for com.google.guava#guava-parent;15.0[0m
@@ -3086,14 +3099,14 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom[0m
-[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.guava#guava-parent;15.0!guava-parent.pom(pom.original) (976ms)[0m
+[0m[[0mdebug[0m] [0m	[SUCCESSFUL ] com.google.guava#guava-parent;15.0!guava-parent.pom(pom.original) (937ms)[0m
 [0m[[0minfo[0m] [0mResolving org.sonatype.oss#oss-parent;7 ...[0m
 [0m[[0mdebug[0m] [0msbt-chain: Checking cache for: dependency: org.sonatype.oss#oss-parent;7 {}[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: org.sonatype.oss#oss-parent;7[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.google.guava/guava-parent/15.0/jars/guava-parent.jar[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.google.guava/guava-parent/15.0/jars/guava-parent.jar[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.jar[0m
 [0m[[0mdebug[0m] [0mCLIENT ERROR: Not Found url=https://repo1.maven.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.jar[0m
-[0m[[0mdebug[0m] [0m		tried /home/shiroh/.ivy2/local/com.google.guava/guava/15.0/bundles/guava.jar[0m
+[0m[[0mdebug[0m] [0m		tried /home/shijun/.ivy2/local/com.google.guava/guava/15.0/bundles/guava.jar[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar[0m
 [0m[[0mdebug[0m] [0m	found com.google.guava#guava;15.0 in public[0m
 [0m[[0mdebug[0m] [0m== resolving dependencies com.twitter#util-collection_2.10;6.12.1->com.google.guava#guava;15.0 [compile->compile(*)][0m
@@ -20284,13 +20297,18 @@
 [0m[[0mdebug[0m] [0m:: downloading artifacts ::[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang#scala-library;2.10.4!scala-library.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.apache.spark#spark-streaming_2.10;1.1.0!spark-streaming_2.10.jar[0m
-[0m[[0mdebug[0m] [0m	[NOT REQUIRED] com.typesafe#config;1.2.1!config.jar(bundle)[0m
+[0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar[0m
+[0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar ...[0m
+[0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar[0m
+[0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar.sha1[0m
+[0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.typesafe#config;1.2.1!config.jar(bundle) (2570ms)[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.jar[0m
 [0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.jar ...[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.jar[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.jar.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/twitter/util-collection_2.10/6.12.1/util-collection_2.10-6.12.1.jar[0m
-[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.twitter#util-collection_2.10;6.12.1!util-collection_2.10.jar (1341ms)[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.twitter#util-collection_2.10;6.12.1!util-collection_2.10.jar (1149ms)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.apache.spark#spark-core_2.10;1.1.0!spark-core_2.10.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.eclipse.jetty#jetty-server;8.1.14.v20131031!jetty-server.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.apache.hadoop#hadoop-client;1.0.4!hadoop-client.jar[0m
@@ -20385,34 +20403,34 @@
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.jar[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.jar.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/twitter/util-core_2.10/6.12.1/util-core_2.10-6.12.1.jar[0m
-[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.twitter#util-core_2.10;6.12.1!util-core_2.10.jar (8968ms)[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.twitter#util-core_2.10;6.12.1!util-core_2.10.jar (14551ms)[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar[0m
 [0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar ...[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar[0m
-[0m[[0minfo[0m] [0m	[SUCCESSFUL ] javax.inject#javax.inject;1!javax.inject.jar (957ms)[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] javax.inject#javax.inject;1!javax.inject.jar (6082ms)[0m
 [0m[[0mdebug[0m] [0m		tried https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar[0m
 [0m[[0minfo[0m] [0mdownloading https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar ...[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar[0m
 [0m[[0mdebug[0m] [0m	public: downloading https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar.sha1[0m
 [0m[[0mdebug[0m] [0msha1 OK for https://repo1.maven.org/maven2/com/google/guava/guava/15.0/guava-15.0.jar[0m
-[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.guava#guava;15.0!guava.jar(bundle) (17987ms)[0m
+[0m[[0minfo[0m] [0m	[SUCCESSFUL ] com.google.guava#guava;15.0!guava.jar(bundle) (10427ms)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang#jline;2.10.4!jline.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 32745ms :: artifacts dl 29532ms[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 compile produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-compile.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 runtime produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-runtime.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 test produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-test.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 provided produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-provided.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 optional produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-optional.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 compile-internal produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-compile-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 runtime-internal produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-runtime-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 test-internal produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-test-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 plugin produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-plugin.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 sources produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-sources.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 docs produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-docs.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 pom produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-pom.xml[0m
-[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 scala-tool produced in /home/shiroh/playground/citi_test/target/resolution-cache/reports/citi-test-citi-test_2.10-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (32745ms resolve - 29532ms download)[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 49549ms :: artifacts dl 35935ms[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 compile produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-compile.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 runtime produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-runtime.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 test produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-test.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 provided produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-provided.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 optional produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-optional.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 compile-internal produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-compile-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 runtime-internal produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-runtime-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 test-internal produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-test-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 plugin produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-plugin.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 sources produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-sources.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 docs produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-docs.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 pom produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-pom.xml[0m
+[0m[[0mdebug[0m] [0m	report for citi-test#citi-test_2.10;1.0 scala-tool produced in /home/shijun/playground/citispark/target/resolution-cache/reports/citi-test-citi-test_2.10-scala-tool.xml[0m
+[0m[[0mdebug[0m] [0m	resolve done (49549ms resolve - 35935ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m
