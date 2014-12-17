@@ -1,12 +1,16 @@
 package citi_test
 
+import org.apache.spark.Logging
+import org.apache.log4j.{ Level, Logger }
+
 trait FIXDecoder {
   //Note RDD will be serialized when map, flatmap called.
   //make decode to be a function instead of a method(function are objects in scala), so that spark will be able to serialize it
   //Also remember put the SOH into the function body , otherwise the whole FIXDecoder class will be serialized
-  
+
   //Alternative way is to serialize the whole class which contian the RDD.map methond
   val decode = (str: String) => {
+    var log = Logger.getRootLogger
     val SOH = " "
     try {
       var fields = str.split(SOH)
@@ -16,7 +20,10 @@ trait FIXDecoder {
       }
       Some(pairArray)
     } catch {
-      case _ => None
+      case _ => {
+        log.error("unrecognized incoming message")
+        None
+      }
     }
   }
 }

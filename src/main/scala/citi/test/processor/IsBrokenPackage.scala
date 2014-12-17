@@ -1,5 +1,5 @@
 package citi.test.processor
 
-trait IsBrokenPackage {
+trait IsBrokenPacket {
   def isBroken:Boolean
 }

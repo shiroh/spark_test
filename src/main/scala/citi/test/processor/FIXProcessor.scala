@@ -1,12 +1,13 @@
 package citi.test.processor
 
 import org.apache.spark.rdd.RDD
-
 import citi_test.Chain
+import org.apache.spark.Logging
+import org.apache.log4j.{ Level, Logger }
 
 //TODO to check whether there is a better way to do the actor connection 
 class FIXProcessor extends Processor {
-
+  var log = Logger.getRootLogger
   def act {
     try {
       while (true) {
@@ -16,16 +17,16 @@ class FIXProcessor extends Processor {
               var pack = processInputDStream(data.asInstanceOf[RDD[Option[Array[(String, String)]]]])
               pack match {
                 case p: Some[FIXPacket] =>
-                  c ! new Chain(p.get, pub); println(p.get.toString)
+                  c ! new Chain(p.get, pub); 
                 case None => Unit
               }
             } else
-              println("error inputDStream")
+              log.error("error inputDStream")
           }
         }
       }
     } catch {
-      case ex:Throwable => println("exception caught:" + ex)
+      case ex:Throwable => log.error("exception was caught in processor:" + ex.getMessage(), ex)
     }
   }
 
