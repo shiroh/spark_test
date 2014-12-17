@@ -22,8 +22,6 @@
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/commons-el/commons-el/jars/commons-el-1.0.jar"/>
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/hsqldb/hsqldb/jars/hsqldb-1.8.0.10.jar"/>
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/oro/oro/jars/oro-2.0.8.jar"/>
-  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.8.8.jar"/>
-  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.8.8.jar"/>
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/net.java.dev.jets3t/jets3t/jars/jets3t-0.7.1.jar"/>
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/commons-httpclient/commons-httpclient/jars/commons-httpclient-3.1.jar"/>
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.apache.curator/curator-recipes/bundles/curator-recipes-2.4.0.jar"/>
@@ -96,6 +94,18 @@
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/util-core_2.10/jars/util-core_2.10-6.12.1.jar"/>
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/javax.inject/javax.inject/jars/javax.inject-1.jar"/>
   <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.google.guava/guava/bundles/guava-15.0.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.1.0.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.apache.spark/spark-catalyst_2.10/jars/spark-catalyst_2.10-1.1.0.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.scalamacros/quasiquotes_2.10/jars/quasiquotes_2.10-2.0.1.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/parquet-column/jars/parquet-column-1.4.3.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/parquet-common/jars/parquet-common-1.4.3.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/parquet-encoding/jars/parquet-encoding-1.4.3.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/parquet-generator/jars/parquet-generator-1.4.3.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/parquet-hadoop/jars/parquet-hadoop-1.4.3.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/parquet-format/jars/parquet-format-2.0.0.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/com.twitter/parquet-jackson/jars/parquet-jackson-1.4.3.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.9.11.jar"/>
+  <classpathentry kind="lib" path="/home/shijun/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.9.11.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="output" path="bin"/>
 </classpath>

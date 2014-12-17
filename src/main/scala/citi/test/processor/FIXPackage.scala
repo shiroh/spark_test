@@ -10,17 +10,15 @@ import org.apache.spark.Logging
 import org.apache.log4j.{ Level, Logger }
 import citi_test.TENORS
 
-class FIXPacket(rdd: RDD[Option[Array[(String, String)]]]) extends IsBrokenPacket {
+class FIXPacket(p: Option[Array[(String, String)]]) extends IsBrokenPacket {
   private var entrySet = new HashMap[String, String]
   var log = Logger.getRootLogger
 
-  for (p <- rdd.collect) {
-    p match {
-      case arr: Some[Array[(String, String)]] => {
-        arr.get.foreach(x => entrySet(x._1) = x._2)
-      }
-      case None => Unit
+  p match {
+    case arr: Some[Array[(String, String)]] => {
+      arr.get.foreach(x => entrySet(x._1) = x._2)
     }
+    case None => Unit
   }
 
   // should check the header in the real FIX protocol
@@ -57,7 +55,7 @@ class FIXPacket(rdd: RDD[Option[Array[(String, String)]]]) extends IsBrokenPacke
   override def toString = "Time:" + getDate + " instrument:" + getInstrument + " tenor" + getTenor + " MidPrice" + getMidPrice
 }
 object FIXPacket {
-  def apply(input: RDD[Option[Array[(String, String)]]]) = {
+  def apply(input: Option[Array[(String, String)]]) = {
     new FIXPacket(input)
   }
 }
