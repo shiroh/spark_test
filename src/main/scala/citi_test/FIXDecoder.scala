@@ -2,6 +2,8 @@ package citi_test
 
 import org.apache.spark.Logging
 import org.apache.log4j.{ Level, Logger }
+import org.apache.spark.rdd.RDD
+import scala.collection.mutable.HashMap
 
 trait FIXDecoder {
   //Note RDD will be serialized when map, flatmap called.
@@ -11,14 +13,23 @@ trait FIXDecoder {
   //Alternative way is to serialize the whole class which contian the RDD.map methond
   val decode = (str: String) => {
     var log = Logger.getRootLogger
+    val map = new HashMap[String, String]
     val SOH = " "
     try {
-      var fields = str.split(SOH)
-      val pairArray = for (field <- fields) yield {
+      val fields = str.split(SOH)
+      for (field <- fields) {
         val pair = field.split("=")
-        (pair(0), pair(1))
+        map(pair(0)) = pair(1)
       }
-      Some(pairArray)
+      if (!TENORS.contain(map(Tags.TENOR))) {
+        log.error("unsupported tenor " + map(Tags.TENOR))
+        None
+      } else if (Utils.TimeConvert(map(Tags.DATE)) == -1) {
+        log.error("unsupported date " + map(Tags.DATE))
+        None
+      } else {
+        Some(FXPacket(map(Tags.DATE), map(Tags.INSTRUMENT), map(Tags.TENOR), map(Tags.BID), map(Tags.ASK)))
+      }
     } catch {
       case _ => {
         log.error("unrecognized incoming message")
