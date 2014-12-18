@@ -10,6 +10,7 @@ libraryDependencies += "log4j" % "log4j" % "1.2.14"
 libraryDependencies += "com.typesafe" % "config" % "1.2.1"
 libraryDependencies += "com.twitter" %% "util-collection" % "6.12.1"
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "1.1.0"
+libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.4.0"
 
 assemblyMergeStrategy in assembly := {
   case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first

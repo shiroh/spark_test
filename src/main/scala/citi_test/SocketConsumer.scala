@@ -1,25 +1,20 @@
 package citi_test
 
+import scala.Array.canBuildFrom
 import scala.actors.Actor
 import scala.collection.mutable.HashMap
+import scala.math.BigDecimal.int2bigDecimal
+import scala.reflect.runtime.universe
+import org.apache.log4j.Level
 import org.apache.log4j.Logger
 import org.apache.spark.SparkConf
-import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.SchemaRDD
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.Seconds
 import org.apache.spark.streaming.StreamingContext
-import org.apache.spark.streaming.StreamingContext._
-import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
-import org.apache.log4j.{ Level, Logger }
-import citi.test.processor.FIXPacket
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.SparkContext
-import scala.reflect._
+import org.apache.spark.rdd.RDD
 
 case class OHLCPrice(date: String, instrument: String, tenor: String, openPrice: BigDecimal, highPrice: BigDecimal, lowPrice: BigDecimal, closePrice: BigDecimal)
 case class TENORPrice(date: String, instrument: String, spotPrice: BigDecimal = 0, oneMPrice: BigDecimal = 0, twoMPrice: BigDecimal = 0, threeMPrice: BigDecimal = 0, oneYPrice: BigDecimal = 0)
@@ -32,12 +27,12 @@ class SocketConsumer extends FIXDecoder {
   import SocketConsumer._
 
   def start() {
+    Logger.getRootLogger().setLevel(Level.WARN)
     var conf = ConfigFactory.load()
 
     val sparkConf = new SparkConf().setAppName("socoketConsumer").setMaster("local[*]")
     val sc = new SparkContext(sparkConf)
-    val ssc = new StreamingContext(sparkConf, Seconds(1))
-    
+
     val sqc = new SQLContext(sc);
     initSQL(sc, sqc)
 
@@ -55,38 +50,43 @@ class SocketConsumer extends FIXDecoder {
 
   def initSQL(sc: SparkContext, sqc: SQLContext) {
     import sqc.createSchemaRDD
-    //    var packetRDD: RDD[FXPacket] = sc.emptyRDD(classTag[FXPacket])
-//    var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet")
-//    pFile.registerAsTable("FXPacket")
-    //    packetRDD.registerTempTable(tables(0))
-    
-    val packetRDD = sc.parallelize(Array(("0", "0", "0", "0", "0"))).map(e => FXPacket(e._1, e._2, e._3, e._4, e._5))
-    packetRDD.saveAsParquetFile("tmp.parquet")
-    val parquetFile = sqc.parquetFile("tmp.parquet")
-    parquetFile.registerAsTable(tables(0))
+    //        var packetRDD: RDD[FXPacket] = sc.emptyRDD(classTag[FXPacket])
+    var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet")
+    pFile.registerAsTable("FXPacket")
+    //        packetRDD.registerTempTable(tables(0))
+    //    val packetRDD = sc.parallelize(Array(("0", "0", "0", "0", "0"))).map(e => FXPacket(e._1, e._2, e._3, e._4, e._5))
+    //    packetRDD.saveAsParquetFile("tmp.parquet")
+    //    val parquetFile = sqc.parquetFile("tmp.parquet")
+    //    packetRDD.registerAsTable(tables(0))
+
+    //    var tmp = sqc.sql("SELECT * FROM FXPacket")
+    //    for (r <- tmp.collect) { println(r)}
+
   }
 
   def initStreaming(ssc: StreamingContext, sql: SQLContext, host: String, port: Int, tableName: String) {
     import sql.createSchemaRDD
-    sql.cacheTable(tableName)
     val lines = ssc.socketTextStream(host, port, StorageLevel.MEMORY_AND_DISK_SER)
     var stream = lines.map(decode).transform(rdd => { rdd.filter(_.nonEmpty).map(_.get) })
     stream.foreachRDD(rdd => {
-
       if (rdd.count != 0) {
-        println(rdd.count)
-        rdd.registerTempTable("tmp")
-        
-        var newRDD = rdd.unionAll(sql.table("FXPacket"))
-        newRDD.registerTempTable("FXPacket")
+        rdd.insertInto("FXPacket")
+        //        rdd.registerTempTable("tmp")
+        //        if (oldtable.count > 0) {
+        //          var newRDD = rdd.unionAll(oldtable)
+        //          newRDD.registerTempTable("FXPacket")
+        //        } else {
+        //          rdd.registerAsTable("FXPacket")
+        //        }
+
         var table = sql.table("FXPacket")
         for (p <- table.collect) {
           println(p)
-//          sql.sql("insert into FXPacket select * from tmp")
-//          sql.sql("insert into FXPacket values(" + p.ts + "," + p.currency + "," + p.tenor + "," + p.bid + "," + p.ask + ")")
+          //          sql.sql("insert into FXPacket select * from tmp")
+          //          sql.sql("insert into FXPacket values(" + p.ts + "," + p.currency + "," + p.tenor + "," + p.bid + "," + p.ask + ")")
         }
-        
-//        rdd.insertInto(tableName)
+
+        //        rdd.insertInto(tableName)
       }
       //      println(rdd)
     })
