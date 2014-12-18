@@ -7,10 +7,10 @@ object Utils {
     try {
       format.parse(dateStr).getTime()
     } catch {
-      case _ => -1
+      case _:Throwable => -1
     }
   }
-  
+
   def DateConvert(dateStr: String) = {
     minFormat.parse(dateStr)
   }
@@ -37,7 +37,7 @@ object TENORS {
       case ONE_M => true
       case TWO_M => true
       case THREE_M => true
-      case ONE_Y =>true
+      case ONE_Y => true
       case _ => false
     }
   }
