@@ -10,7 +10,7 @@ import org.apache.spark.Logging
 import org.apache.log4j.{ Level, Logger }
 import citi_test.TENORS
 
-class FIXPacket(p: Option[Array[(String, String)]]) extends IsBrokenPacket {
+case class FIXPacket(p: Option[Array[(String, String)]]) extends IsBrokenPacket {
   private var entrySet = new HashMap[String, String]
   var log = Logger.getRootLogger
 
@@ -53,11 +53,6 @@ class FIXPacket(p: Option[Array[(String, String)]]) extends IsBrokenPacket {
   def getTag = entrySet(Tags.INSTRUMENT) + entrySet(Tags.TENOR)
 
   override def toString = "Time:" + getDate + " instrument:" + getInstrument + " tenor" + getTenor + " MidPrice" + getMidPrice
-}
-object FIXPacket {
-  def apply(input: Option[Array[(String, String)]]) = {
-    new FIXPacket(input)
-  }
 }
 
 
