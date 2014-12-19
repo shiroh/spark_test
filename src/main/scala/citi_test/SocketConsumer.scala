@@ -15,6 +15,7 @@ import org.apache.spark.streaming.Seconds
 import org.apache.spark.streaming.StreamingContext
 import com.typesafe.config.ConfigFactory
 import org.apache.spark.rdd.RDD
+import scala.reflect.ClassTag
 
 case class OHLCPrice(date: String, instrument: String, tenor: String, openPrice: BigDecimal, highPrice: BigDecimal, lowPrice: BigDecimal, closePrice: BigDecimal)
 case class TENORPrice(date: String, instrument: String, spotPrice: BigDecimal = 0, oneMPrice: BigDecimal = 0, twoMPrice: BigDecimal = 0, threeMPrice: BigDecimal = 0, oneYPrice: BigDecimal = 0)
@@ -23,7 +24,7 @@ case class FXPacket(ts: String, currency: String, tenor: String, bid: String, as
 class SocketConsumer extends FIXDecoder {
 
   var log = Logger.getRootLogger()
-  val tables = Array("FXPacket")
+  val table = "FXPacket"
   import SocketConsumer._
 
   def start() {
@@ -35,66 +36,39 @@ class SocketConsumer extends FIXDecoder {
 
     val sqc = new SQLContext(sc);
     initSQL(sc, sqc)
-
     val ssc = new StreamingContext(sc, Seconds(1))
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
-    initStreaming(ssc, sqc, "localhost", 9007, tables(0))
-    initStreaming(ssc, sqc, "localhost", 9008, tables(0))
+    initStreaming(ssc, sqc, "localhost", 9007, table)
+    initStreaming(ssc, sqc, "localhost", 9008, table)
 
-    startJob(sqc, tables)
-
+    startJob(sqc, table)
     ssc.start()
     ssc.awaitTermination()
   }
 
   def initSQL(sc: SparkContext, sqc: SQLContext) {
     import sqc.createSchemaRDD
-    //        var packetRDD: RDD[FXPacket] = sc.emptyRDD(classTag[FXPacket])
-    var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet")
-    pFile.registerAsTable("FXPacket")
-    //        packetRDD.registerTempTable(tables(0))
-    //    val packetRDD = sc.parallelize(Array(("0", "0", "0", "0", "0"))).map(e => FXPacket(e._1, e._2, e._3, e._4, e._5))
-    //    packetRDD.saveAsParquetFile("tmp.parquet")
-    //    val parquetFile = sqc.parquetFile("tmp.parquet")
-    //    packetRDD.registerAsTable(tables(0))
+    import scala.reflect._
 
-    //    var tmp = sqc.sql("SELECT * FROM FXPacket")
-    //    for (r <- tmp.collect) { println(r)}
-
+    var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet." + System.currentTimeMillis())
+    pFile.registerTempTable(table)
   }
 
-  def initStreaming(ssc: StreamingContext, sql: SQLContext, host: String, port: Int, tableName: String) {
-    import sql.createSchemaRDD
+  def initStreaming(ssc: StreamingContext, sqc: SQLContext, host: String, port: Int, tableName: String) {
+    import sqc.createSchemaRDD
     val lines = ssc.socketTextStream(host, port, StorageLevel.MEMORY_AND_DISK_SER)
     var stream = lines.map(decode).transform(rdd => { rdd.filter(_.nonEmpty).map(_.get) })
     stream.foreachRDD(rdd => {
       if (rdd.count != 0) {
         rdd.insertInto("FXPacket")
-        //        rdd.registerTempTable("tmp")
-        //        if (oldtable.count > 0) {
-        //          var newRDD = rdd.unionAll(oldtable)
-        //          newRDD.registerTempTable("FXPacket")
-        //        } else {
-        //          rdd.registerAsTable("FXPacket")
-        //        }
-
-        var table = sql.table("FXPacket")
-        for (p <- table.collect) {
-          println(p)
-          //          sql.sql("insert into FXPacket select * from tmp")
-          //          sql.sql("insert into FXPacket values(" + p.ts + "," + p.currency + "," + p.tenor + "," + p.bid + "," + p.ask + ")")
-        }
-
-        //        rdd.insertInto(tableName)
       }
-      //      println(rdd)
     })
     log.info("job start on " + host + ":" + port)
   }
 
-  def startJob(sql: SQLContext, tables: Array[String]) {
-    val processor = new Processor(sql, tables)
+  def startJob(sql: SQLContext, table: String) {
+    val processor = new Processor(sql, table)
     val timer = new Timer(processor)
 
     processor.start
@@ -110,7 +84,7 @@ object SocketConsumer {
   }
 }
 
-class Processor(sqc: SQLContext, tableNameList: Array[String]) extends Actor {
+class Processor(sqc: SQLContext, table: String) extends Actor {
   var OHLCMap = new HashMap[String, OHLCPrice]
   var TENORMap = new HashMap[String, TENORPrice]
 
@@ -118,24 +92,27 @@ class Processor(sqc: SQLContext, tableNameList: Array[String]) extends Actor {
     while (true) {
       receive {
         case true => {
-          update _
-          output _
-          clean _
+          update
+          output
+          clean
         }
       }
     }
   }
 
-  val update = () => {
-    val ohlc = sqc.sql("SELECT * FROM OHLC ORDER BY ts")
-    ohlc.collect.foreach(println)
+  def update {
+    val t = sqc.sql("SELECT * FROM FXPacket ORDER BY ts")
+    t.collect.foreach(println)
   }
 
-  val output = () => {
+  def output = {
 
   }
 
-  val clean = () => {
-    for (table <- tableNameList) yield sqc.uncacheTable(table)
+  def clean = {
+    println("start to clean")
+//    sqc.uncacheTable(table)
+    var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet." + System.currentTimeMillis())
+    pFile.registerTempTable(table)
   }
 }
