@@ -47,7 +47,7 @@ class SocketConsumer extends FIXDecoder {
     import sqc.createSchemaRDD
     import scala.reflect._
 
-    var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet." + System.currentTimeMillis())
+    var pFile = sqc.createParquetFile[FXPacket]("parquet/tmp.parquet." + System.currentTimeMillis())
     pFile.registerTempTable(table)
   }
 
@@ -163,8 +163,7 @@ class Processor(sqc: SQLContext, table: String) extends Actor {
   }
 
   def clean = {
-    val time = System.currentTimeMillis()
-    var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet." + System.currentTimeMillis())
+    var pFile = sqc.createParquetFile[FXPacket]("parquet/tmp.parquet." + System.currentTimeMillis())
     pFile.registerTempTable(table)
   }
 }
