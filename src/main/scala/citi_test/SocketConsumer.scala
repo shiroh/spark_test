@@ -1,10 +1,9 @@
 package citi_test
 
-import scala.Array.canBuildFrom
 import scala.actors.Actor
 import scala.collection.mutable.HashMap
-import scala.math.BigDecimal.int2bigDecimal
 import scala.reflect.runtime.universe
+
 import org.apache.log4j.Level
 import org.apache.log4j.Logger
 import org.apache.spark.SparkConf
@@ -13,22 +12,21 @@ import org.apache.spark.sql.SQLContext
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.Seconds
 import org.apache.spark.streaming.StreamingContext
-import com.typesafe.config.ConfigFactory
-import org.apache.spark.rdd.RDD
-import scala.reflect.ClassTag
 
-case class OHLCPrice(date: String, instrument: String, tenor: String, openPrice: BigDecimal, highPrice: BigDecimal, lowPrice: BigDecimal, closePrice: BigDecimal)
-case class TENORPrice(date: String, instrument: String, spotPrice: BigDecimal = 0, oneMPrice: BigDecimal = 0, twoMPrice: BigDecimal = 0, threeMPrice: BigDecimal = 0, oneYPrice: BigDecimal = 0)
+import com.typesafe.config.ConfigFactory
+
+case class OHLCPrice(date: String, instrument: String, tenor: String, openPrice: String, highPrice: String, lowPrice: String, closePrice: String)
+case class TENORPrice(date: String, instrument: String, spotPrice: String, oneMPrice: String, twoMPrice: String, threeMPrice: String, oneYPrice: String)
 case class FXPacket(ts: String, currency: String, tenor: String, bid: String, ask: String)
 
 class SocketConsumer extends FIXDecoder {
 
   var log = Logger.getRootLogger()
+  Logger.getRootLogger.setLevel(Level.WARN)
   val table = "FXPacket"
   import SocketConsumer._
 
   def start() {
-    Logger.getRootLogger().setLevel(Level.WARN)
     var conf = ConfigFactory.load()
 
     val sparkConf = new SparkConf().setAppName("socoketConsumer").setMaster("local[*]")
@@ -94,15 +92,22 @@ class Processor(sqc: SQLContext, table: String) extends Actor {
         case true => {
           update
           output
-          clean
         }
       }
     }
   }
 
   def update {
-    val t = sqc.sql("SELECT * FROM FXPacket ORDER BY ts")
+    val time = System.currentTimeMillis()
+    val schemaRDD = sqc.table("FXPacket")
+    schemaRDD.registerTempTable("tmp")
+    println("transfer time cost:" + (System.currentTimeMillis - time))
+    clean
+
+    val time2 = System.currentTimeMillis()
+    val t = sqc.sql("SELECT currency,tenor FROM tmp GROUP BY currency,tenor")
     t.collect.foreach(println)
+    println("update time cost:" + (System.currentTimeMillis - time2))
   }
 
   def output = {
@@ -110,9 +115,11 @@ class Processor(sqc: SQLContext, table: String) extends Actor {
   }
 
   def clean = {
+    val time = System.currentTimeMillis()
     println("start to clean")
-//    sqc.uncacheTable(table)
+    //    sqc.uncacheTable(table)
     var pFile = sqc.createParquetFile[FXPacket]("tmp.parquet." + System.currentTimeMillis())
     pFile.registerTempTable(table)
+    println("update time cost:" + (System.currentTimeMillis - time))
   }
 }
