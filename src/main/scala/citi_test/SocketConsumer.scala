@@ -14,8 +14,8 @@ import org.apache.spark.streaming.StreamingContext
 import com.typesafe.config.ConfigFactory
 import org.apache.spark.sql.SchemaRDD
 
-case class OHLCPrice(currency: String, tenor: String, var openPrice: String, var highPrice: String, var lowPrice: String, var closePrice: String)
-case class TENORPrice(currency: String, var spotPrice: String, var oneMPrice: String, var twoMPrice: String, var threeMPrice: String, var oneYPrice: String)
+case class OHLCPrice(ts: String, currency: String, tenor: String, var openPrice: String, var highPrice: String, var lowPrice: String, var closePrice: String)
+case class TENORPrice(ts: String, currency: String, var spotPrice: String, var oneMPrice: String, var twoMPrice: String, var threeMPrice: String, var oneYPrice: String)
 case class FXPacket(ts: String, currency: String, tenor: String, bid: String, ask: String)
 
 class SocketConsumer extends FIXDecoder {
@@ -82,6 +82,7 @@ object SocketConsumer {
 }
 
 class Processor(sqc: SQLContext, table: String) extends Actor {
+  var log = Logger.getRootLogger()
   var OHLCMap = new HashMap[String, OHLCPrice]
   var snapshotMap = new HashMap[String, TENORPrice]
 
@@ -89,21 +90,33 @@ class Processor(sqc: SQLContext, table: String) extends Actor {
     while (true) {
       receive {
         case true => {
-          update
-          output
+          try {
+            transfer
+            clean
+            update
+            output
+          } catch {
+            case _: Throwable => {
+              log.error("no message coming or error happen")
+            }
+          }
         }
       }
     }
   }
 
-  def update {
+  def transfer = {
     //since sqc.sql is extremely slow, create a tmp table in memory for the further sql  
-    val schemaRDD = sqc.table("FXPacket")
+    val schemaRDD = sqc.table(table)
     schemaRDD.registerTempTable("lastMinTable")
 
-    clean
+  }
+  def clean = {
+    var pFile = sqc.createParquetFile[FXPacket]("parquet/tmp.parquet." + System.currentTimeMillis())
+    pFile.registerTempTable(table)
+  }
 
-    //    val t = sqc.sql("SELECT currency,tenor FROM lastMinTable GROUP BY currency,tenor")
+  def update {
     //get max price 
     sqc.sql("SELECT  currency, tenor, MAX(bid + ask) AS price FROM lastMinTable GROUP BY currency, tenor").registerAsTable("maxt")
     val tmax = sqc.sql("SELECT DISTINCT lastMinTable.ts, lastMinTable.currency, lastMinTable.tenor, (lastMinTable.ask + lastMinTable.bid) AS price FROM lastMinTable INNER JOIN maxt ON lastMinTable.currency = maxt.currency AND lastMinTable.tenor = maxt.tenor AND (lastMinTable.ask + lastMinTable.bid) = maxt.price")
@@ -120,34 +133,28 @@ class Processor(sqc: SQLContext, table: String) extends Actor {
     sqc.sql("SELECT MAX(ts) AS ts, currency, tenor FROM lastMinTable GROUP BY currency, tenor").registerAsTable("closet")
     val tclose = sqc.sql("SELECT DISTINCT lastMinTable.ts, lastMinTable.currency, lastMinTable.tenor, (lastMinTable.ask + lastMinTable.bid) AS price FROM lastMinTable INNER JOIN closet ON lastMinTable.currency = closet.currency AND lastMinTable.tenor = closet.tenor AND lastMinTable.ts = closet.ts")
 
-    tmax.collect.foreach(println)
-    tmin.collect.foreach(println)
-    topen.collect.foreach(println)
-    tclose.collect.foreach(println)
-
     updateMap(topen, "open")
     updateMap(tmax, "high")
     updateMap(tmin, "low")
     updateMap(tclose, "close")
-    
+
   }
 
   def updateMap(rdd: SchemaRDD, field: String) {
     rdd.collect.foreach(row => {
+      val ts = row.getString(0)
       val currency = row.getString(1)
       val tenor = row.getString(2)
       val price = row.getDouble(3) / 2
       val key = row.getString(1) + row.getString(2)
-      println(key)
-      println(price)
-      var p = OHLCMap.getOrElseUpdate(key, OHLCPrice(currency, tenor, "0", "0", "0", "0"))
+      var p = OHLCMap.getOrElseUpdate(key, OHLCPrice(ts, currency, tenor, "0", "0", "0", "0"))
       field match {
         case "open" => p.openPrice = price.toString
         case "high" => p.highPrice = price.toString
         case "low" => p.lowPrice = price.toString
         case "close" => {
           p.closePrice = price.toString
-          var s = snapshotMap.getOrElseUpdate(currency, TENORPrice(currency, "0", "0", "0", "0", "0"))
+          var s = snapshotMap.getOrElseUpdate(currency, TENORPrice(ts, currency, "0", "0", "0", "0", "0"))
           tenor match {
             case TENORS.SPOT => s.spotPrice = price.toString
             case TENORS.ONE_M => s.oneMPrice = price.toString
@@ -160,10 +167,20 @@ class Processor(sqc: SQLContext, table: String) extends Actor {
     })
   }
   def output = {
-  }
+    val ohlcTitle = "Time(till min)\tCurrency\tTenor\tOpen-Mid\tHigh-Mid\tLow-Mid\tClose-Mid"
+    println(ohlcTitle)
+    val minute = System.currentTimeMillis() - 60000
+    OHLCMap.valuesIterator.foreach(p => {
 
-  def clean = {
-    var pFile = sqc.createParquetFile[FXPacket]("parquet/tmp.parquet." + System.currentTimeMillis())
-    pFile.registerTempTable(table)
+      var str = Utils.MinConvert(minute) + "\t" + p.currency + "\t" + p.tenor + "\t" + p.openPrice + "\t" + p.highPrice + "\t" + p.lowPrice + "\t" + p.closePrice
+      println(str)
+    })
+
+    val tenorTitle = "Time(till min)\tCurrencyPair\tSpot\t1M\t2M\t3M\t1Y"
+    println(tenorTitle)
+    snapshotMap.valuesIterator.foreach(p => {
+      var str = Utils.MinConvert(minute) + "\t" + p.currency + "\t" + p.spotPrice + "\t" + p.oneMPrice + "\t" + p.twoMPrice + "\t" + p.threeMPrice + "\t" + p.oneYPrice
+      println(str)
+    })
   }
 }

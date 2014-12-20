@@ -1,5 +1,6 @@
 package citi_test
 
+
 object Utils {
   val format = new java.text.SimpleDateFormat("yyyyMMdd-HH:mm:ss.SSS")
   val minFormat = new java.text.SimpleDateFormat("yyyyMMdd-HH:mm")
@@ -13,6 +14,11 @@ object Utils {
 
   def DateConvert(dateStr: String) = {
     minFormat.parse(dateStr)
+  }
+  
+  def MinConvert(unixTime: Long) = {
+    val a = new java.util.Date(unixTime)
+    minFormat.format(a)
   }
 }
 
